@@ -31,6 +31,8 @@ namespace PhoneBookApp.Web.Models
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0_9-]+\.[a-zA-Z0-9-.]+$", ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
 
+        [Display(Name="Birth date")]
+        [DataType(DataType.Date)]
         [Required]
         public DateTime BirthDate { get; set; }
     }

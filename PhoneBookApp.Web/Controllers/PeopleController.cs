@@ -48,6 +48,7 @@ namespace PhoneBookApp.Web.Controllers
         // GET: People/Create
         public IActionResult Create()
         {
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name");
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name");
             return View();
         }
@@ -83,6 +84,8 @@ namespace PhoneBookApp.Web.Controllers
                 return NotFound();
             }
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", person.CityId);
+            var city = await _context.Cities.FindAsync(person.CityId);
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
             return View(person);
         }
 
