@@ -33,6 +33,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.BirthDate)
             </th>
+            <th>
+                Age
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -51,14 +54,28 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
+            <td style="text-align: center";>
+                @switch (item.Gender.GetValueOrDefault())
+                {
+                    case GenderChoice.Male:
+                        <img src="~/Resources/male.png" style="height:24px;width:24px;" alt="@Html.DisplayFor(modelItem => item.Gender)"/>
+                        break;
+                    case GenderChoice.Female:
+                        <img src="~/Resources/female.png" style="height:24px;width:24px;" alt="@Html.DisplayFor(modelItem => item.Gender)" />
+                        break;
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @{
+                    var myAge = Math.Max(0, DateTime.Now.Year - item.BirthDate.Year);
+                    @Html.DisplayFor(modelItem => myAge);
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
