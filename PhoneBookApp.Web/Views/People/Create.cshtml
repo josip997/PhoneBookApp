@@ -13,11 +13,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Country</label>
-                <select class="form-control" asp-items="ViewBag.CountryId"></select>
+                <select asp-for="Id" class="form-control" asp-items="ViewBag.CountryId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CityId" class="control-label">City</label>
-                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
+                @Html.DropDownListFor(a => a.CityId, new SelectList(" "), "Select country first...", new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -58,4 +58,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    $(document).ready(function () {
+        $("#Id").change(function () {
+            $.get("/Cities/GetCityList", { CountryId: $("#Id").val() }, function (data) {
+                $("CityId").html("");
+                $.each(data, function (index, row) {
+                    $("#CityId").append("<option value='" + row._Id + "'>" + row._Name + "</option>")
+                })
+            })
+        })
+    });
+</script>
 }
