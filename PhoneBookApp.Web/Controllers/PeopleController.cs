@@ -66,7 +66,12 @@ namespace PhoneBookApp.Web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", person.CityId);
+            //Get city from person
+            var myCity = await _context.Cities.FindAsync(person.CityId);
+            //Get country from city
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", myCity.CountryId);
+            //Get city from person and show other cities from same country
+            ViewData["CityId"] = new SelectList(_context.Cities.Where(c => c.CountryId == myCity.CountryId), "Id", "Name", person.CityId);
             return View(person);
         }
 
@@ -86,11 +91,10 @@ namespace PhoneBookApp.Web.Controllers
 
             //Get city from person
             var myCity = await _context.Cities.FindAsync(person.CityId);
-            //Get city from person and show other cities from same country
-            ViewData["CityId"] = new SelectList(_context.Cities.Where(c => c.CountryId == myCity.CountryId), "Id", "Name", person.CityId);
             //Get country from city
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", myCity.CountryId);
-
+            //Get city from person and show other cities from same country
+            ViewData["CityId"] = new SelectList(_context.Cities.Where(c => c.CountryId == myCity.CountryId), "Id", "Name", person.CityId);
             return View(person);
         }
 
@@ -126,7 +130,12 @@ namespace PhoneBookApp.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", person.CityId);
+            //Get city from person
+            var myCity = await _context.Cities.FindAsync(person.CityId);
+            //Get country from city
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", myCity.CountryId);
+            //Get city from person and show other cities from same country
+            ViewData["CityId"] = new SelectList(_context.Cities.Where(c => c.CountryId == myCity.CountryId), "Id", "Name", person.CityId);
             return View(person);
         }
 

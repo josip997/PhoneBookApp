@@ -9,7 +9,7 @@ namespace PhoneBookApp.Web.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "The City field is required.")]
         public int CityId { get; set; }
         public City City { get; set; }
 

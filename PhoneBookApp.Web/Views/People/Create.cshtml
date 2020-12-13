@@ -13,13 +13,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Country</label>
-                @Html.DropDownListFor(a => a.City.CountryId, ViewBag.CountryId as SelectList, 
+                @Html.DropDownList("CountryId", ViewBag.CountryId as SelectList, 
                                         "Select country...", new { @id = "CountryId", @class = "form-control" })
             </div>
             <div class="form-group">
                 <label asp-for="CityId" class="control-label">City</label>
-                @Html.DropDownListFor(a => a.CityId, new SelectList(" "), 
+                @Html.DropDownListFor(a => a.CityId, new SelectList(" "),
                                         "Select country first...", new { @class = "form-control" })
+                <span asp-validation-for="CityId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
