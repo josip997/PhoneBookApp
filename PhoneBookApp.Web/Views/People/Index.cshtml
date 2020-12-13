@@ -57,6 +57,7 @@
             <td style="text-align: center";>
                 @switch (item.Gender.GetValueOrDefault())
                 {
+                    //Show corresponding image for gender
                     case GenderChoice.Male:
                         <img src="~/Resources/male.png" style="height:24px;width:24px;" alt="@Html.DisplayFor(modelItem => item.Gender)"/>
                         break;
@@ -73,11 +74,12 @@
             </td>
             <td>
                 @{
+                    //Get age by subtracting birth date year from current year, show 0 if age < 0
                     var myAge = Math.Max(0, DateTime.Now.Year - item.BirthDate.Year);
                     @Html.DisplayFor(modelItem => myAge);
                 }
             </td>
-            <td>
+            <td class="crud-buttons">
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>

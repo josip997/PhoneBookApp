@@ -14,7 +14,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label class="control-label">Country</label>
-                <select class="form-control" asp-items="ViewBag.CountryId"></select>
+                <select class="form-control" id="CountryId" asp-items="ViewBag.CountryId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CityId" class="control-label">City</label>
@@ -60,4 +60,18 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @* Change event for country, populates combobox with cities from selected country *@
+    <script>
+        $(document).ready(function () {
+            $("#CountryId").change(function () {
+                $.get("/Cities/GetCityList", { CountryId: $("#CountryId").val() }, function (data) {
+                    $("#CityId").empty();
+                    $.each(data, function (index, row) {
+                        $("#CityId").append("<option value='" + row._Id + "'>" + row._Name + "</option>")
+                    })
+                })
+            })
+        });
+    </script>
 }

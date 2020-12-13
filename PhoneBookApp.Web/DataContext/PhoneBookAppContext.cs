@@ -13,10 +13,6 @@ namespace PhoneBookApp.Web.DataContext
         {
 
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source=DESKTOP-D1R32M0; Initial Catalog=TestPhoneBookApp; User Id=sa; Password=12!?qwQW;");
-        //}
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Person> People { get; set; }

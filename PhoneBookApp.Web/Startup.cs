@@ -29,7 +29,6 @@ namespace PhoneBookApp.WebTest
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
-            //TODO: Dependency injection
             services.AddDbContext<PhoneBookAppContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }

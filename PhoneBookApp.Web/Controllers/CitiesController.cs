@@ -157,6 +157,7 @@ namespace PhoneBookApp.Web.Controllers
             return _context.Cities.Any(e => e.Id == id);
         }
 
+        // Returns list of cities for passed country parameter
         public JsonResult GetCityList(int CountryId)
         {
             List<City> CityList = _context.Cities.Where(x => x.CountryId == CountryId).ToList();

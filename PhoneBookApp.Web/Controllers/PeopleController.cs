@@ -83,9 +83,14 @@ namespace PhoneBookApp.Web.Controllers
             {
                 return NotFound();
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", person.CityId);
-            var city = await _context.Cities.FindAsync(person.CityId);
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
+
+            //Get city from person
+            var myCity = await _context.Cities.FindAsync(person.CityId);
+            //Get city from person and show other cities from same country
+            ViewData["CityId"] = new SelectList(_context.Cities.Where(c => c.CountryId == myCity.CountryId), "Id", "Name", person.CityId);
+            //Get country from city
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", myCity.CountryId);
+
             return View(person);
         }
 
